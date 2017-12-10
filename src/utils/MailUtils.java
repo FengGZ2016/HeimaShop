@@ -15,13 +15,15 @@ public class MailUtils {
 
 		Properties props = new Properties();
 		props.setProperty("mail.transport.protocol", "SMTP");
-		props.setProperty("mail.host", "smtp.126.com");
+		props.setProperty("mail.host", "smtp.163.com");
 		props.setProperty("mail.smtp.auth", "true");// 指定验证为true
 
 		// 创建验证器
 		Authenticator auth = new Authenticator() {
+			@Override
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("haohao_itcast", "hao12345");
+				//用户名和邮箱的授权码
+				return new PasswordAuthentication("fenggf2016", "fgf2016");
 			}
 		};
 
@@ -30,9 +32,11 @@ public class MailUtils {
 		// 2.创建一个Message，它相当于是邮件内容
 		Message message = new MimeMessage(session);
 
-		message.setFrom(new InternetAddress("haohao_itcast@126.com")); // 设置发送者
+		// 设置发送者
+		message.setFrom(new InternetAddress("fenggf2016@163.com"));
 
-		message.setRecipient(RecipientType.TO, new InternetAddress(email)); // 设置发送方式与接收者
+		// 设置发送方式与接收者
+		message.setRecipient(RecipientType.TO, new InternetAddress(email));
 
 		message.setSubject("用户激活");
 		// message.setText("这是一封激活邮件，请<a href='#'>点击</a>");
