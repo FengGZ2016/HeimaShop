@@ -31,4 +31,22 @@ public class UserService {
 
         return row>0?true:false;
     }
+
+
+    /**
+     * 邮箱激活
+     * @param activeCode
+     */
+    public boolean active(String activeCode) {
+        //调用dao层激活
+        UserDao userDao=new UserDao();
+        int row=0;
+        try {
+            row= userDao.active(activeCode);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return row>0?true:false;
+    }
 }

@@ -6,7 +6,9 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 import service.UserService;
 import utils.CommonsUtils;
+import utils.MailUtils;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +74,15 @@ public class RegisterServlet extends HttpServlet{
 
         if (isRegisterSuccess){
             //注册成功,发送激活邮箱
+            String emailMsg = "恭喜您注册成功，请点击下面的连接进行激活账户"
+                    + "<a href='http://localhost:8080/HeimaShop/active?activeCode="+activeCode+"'>"
+                    + "http://localhost:8080/HeimaShop/active?activeCode="+activeCode+"</a>";
+
+            try {
+                MailUtils.sendMail(user.getEmail(),emailMsg);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
 
             //跳转到注册成功页面
             resp.sendRedirect(req.getContextPath()+"/registerSuccess.jsp");

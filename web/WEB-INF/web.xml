@@ -13,4 +13,14 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>ActiveServlet</servlet-name>
+        <servlet-class>web.servlet.ActiveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActiveServlet</servlet-name>
+        <url-pattern>/active</url-pattern>
+    </servlet-mapping>
+    
+    
 </web-app>

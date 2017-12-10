@@ -26,4 +26,18 @@ public class UserDao {
 
         return row;
     }
+
+
+    /**
+     * 邮箱激活
+     * @param activeCode
+     */
+    public int active(String activeCode) throws SQLException {
+
+        QueryRunner queryRunner=new QueryRunner(DataSourceUtils.getDataSource());
+        String sqlStr="update user set state=? where code=?";
+        int row = queryRunner.update(sqlStr, 1, activeCode);
+
+        return row;
+    }
 }
