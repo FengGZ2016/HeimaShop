@@ -2,6 +2,7 @@ package dao;
 
 import domain.User;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.DataSourceUtils;
 
 import java.sql.SQLException;
@@ -39,5 +40,19 @@ public class UserDao {
         int row = queryRunner.update(sqlStr, 1, activeCode);
 
         return row;
+    }
+
+
+    /**
+     * 检查用户名是否已存在
+     * @param username
+     * @return
+     */
+    public Long checkUserName(String username) throws SQLException {
+        QueryRunner queryRunner=new QueryRunner(DataSourceUtils.getDataSource());
+        String sqlStr="select count(*) from user where username=?";
+        Long query =(Long) queryRunner.query(sqlStr, new ScalarHandler(), (Object) username);
+
+        return query;
     }
 }

@@ -22,5 +22,13 @@
         <url-pattern>/active</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet>
+        <servlet-name>CheckUserNameServlet</servlet-name>
+        <servlet-class>web.servlet.CheckUsernameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckUserNameServlet</servlet-name>
+        <url-pattern>/checkUsername</url-pattern>
+    </servlet-mapping>
+
 </web-app>

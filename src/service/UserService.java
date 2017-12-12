@@ -49,4 +49,24 @@ public class UserService {
 
         return row>0?true:false;
     }
+
+
+    /**
+     * 检查用户是否已存在
+     * @param username
+     * @return
+     */
+    public boolean checkUserName(String username) {
+        UserDao userDao=new UserDao();
+        Long isExist=0L;
+
+        try {
+            isExist=userDao.checkUserName(username);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isExist>0?true:false;
+
+    }
 }
