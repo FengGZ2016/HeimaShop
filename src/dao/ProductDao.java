@@ -1,5 +1,6 @@
 package dao;
 
+import domain.Category;
 import domain.Product;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -40,5 +41,18 @@ public class ProductDao {
 
         return list;
 
+    }
+
+
+    /**
+     * 查询所有商品分类
+     * @return
+     */
+    public List<Category> findAllCategory() throws SQLException {
+        QueryRunner queryRunner=new QueryRunner(DataSourceUtils.getDataSource());
+        String sqlStr="select * from category";
+        List<Category> categoryList = queryRunner.query(sqlStr, new BeanListHandler<Category>(Category.class));
+
+        return categoryList;
     }
 }

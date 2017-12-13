@@ -35,11 +35,10 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="product_list.htm">手机数码<span class="sr-only">(current)</span></a></li>
-					<li><a href="#">电脑办公</a></li>
-					<li><a href="#">电脑办公</a></li>
-					<li><a href="#">电脑办公</a></li>
+				<%--动态显示数据库中的分类列表--%>
+				<ul class="nav navbar-nav" id="menu">
+
+				<%--	<li><a href="#">电脑办公</a></li>--%>
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
@@ -49,5 +48,31 @@
 				</form>
 			</div>
 		</div>
+
+
+		<%--发送Ajax单独查询分类导航--%>
+		<script type="text/javascript">
+			//当header.jsp加载完毕后，就去服务器端获取所有的category数据
+			$(function () {
+				var content="";
+				$.post(
+				    "${pageContext.request.contextPath}/categoryList",
+
+					function (data) {
+						for (var i=0;i<data.length;i++){
+						    content+="<li><a href='${pageContext.request.contextPath}/productListByCid?cid="+data[i].cid+"'>"+data[i].cname+"</a> </li>";
+						}
+						//将拼接好的li放置到ul中
+						$("#menu").html(content);
+
+                    },
+
+					"json"
+				);
+
+                }
+			);
+
+		</script>
 	</nav>
 </div>

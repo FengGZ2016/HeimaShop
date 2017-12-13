@@ -1,6 +1,7 @@
 package service;
 
 import dao.ProductDao;
+import domain.Category;
 import domain.Product;
 
 import java.sql.SQLException;
@@ -50,4 +51,25 @@ public class ProductService {
         return productList;
 
     }
+
+
+    /**
+     * 查询所有产品分类
+     * @return
+     */
+    public List<Category> findAllCategory() {
+
+        ProductDao productDao=new ProductDao();
+        List<Category> categoryList=null;
+
+        try {
+            categoryList=productDao.findAllCategory();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categoryList;
+    }
+
+
 }
