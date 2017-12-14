@@ -22,5 +22,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.23" level="application_server_libraries" />
     <orderEntry type="library" name="heimaShop" level="project" />
     <orderEntry type="library" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" name="jedis-2.7.0" level="project" />
+    <orderEntry type="library" name="commons-pool2-2.3" level="project" />
   </component>
 </module>
