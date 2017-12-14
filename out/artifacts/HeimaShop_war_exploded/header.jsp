@@ -56,8 +56,9 @@
 			$(function () {
 				var content="";
 				$.post(
+				    /*访问数据*/
 				    "${pageContext.request.contextPath}/categoryList",
-
+					/*接收数据*/
 					function (data) {
 						for (var i=0;i<data.length;i++){
 						    content+="<li><a href='${pageContext.request.contextPath}/productListByCid?cid="+data[i].cid+"'>"+data[i].cname+"</a> </li>";
@@ -66,7 +67,7 @@
 						$("#menu").html(content);
 
                     },
-
+					/*数据类型*/
 					"json"
 				);
 

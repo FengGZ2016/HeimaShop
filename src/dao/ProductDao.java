@@ -4,6 +4,7 @@ import domain.Category;
 import domain.Product;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.DataSourceUtils;
 
 import java.sql.SQLException;
@@ -54,5 +55,35 @@ public class ProductDao {
         List<Category> categoryList = queryRunner.query(sqlStr, new BeanListHandler<Category>(Category.class));
 
         return categoryList;
+    }
+
+    /**
+     * 返回商品的总数
+     * @param cid
+     * @return
+     */
+    public int getCount(String cid) throws SQLException {
+        QueryRunner queryRunner=new QueryRunner(DataSourceUtils.getDataSource());
+        String sqlStr="select count(*) from product where cid=?";
+        Long query = (Long) queryRunner.query(sqlStr, new ScalarHandler(), cid);
+
+        return query.intValue();
+    }
+
+
+    /**
+     * 返回当前页要显示的数据
+     * @param cid
+     * @param index
+     * @param currentCount
+     * @return
+     */
+    public List<Product> findProductByPage(String cid, int index, int currentCount) throws SQLException {
+    QueryRunner queryRunner=new QueryRunner(DataSourceUtils.getDataSource());
+    String sqlStr="select * from product where cid=? limit ?,?";
+
+        List<Product> query = queryRunner.query(sqlStr, new BeanListHandler<Product>(Product.class), cid, index, currentCount);
+
+        return query;
     }
 }

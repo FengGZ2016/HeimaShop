@@ -2,6 +2,7 @@ package service;
 
 import dao.ProductDao;
 import domain.Category;
+import domain.PageBean;
 import domain.Product;
 
 import java.sql.SQLException;
@@ -72,4 +73,46 @@ public class ProductService {
     }
 
 
+    /**
+     * 返回分页商品数据
+     * @param cid
+     * @return
+     */
+    public PageBean findProductListByCid(String cid,int currentPage,int currentCount) {
+        ProductDao productDao=new ProductDao();
+        //封装一个PageBean，返回web层
+        PageBean<Product> pageBean=new PageBean<>();
+
+        //封装当前页
+        pageBean.setCurrentPage(currentPage);
+        //封装每页显示的条数
+        pageBean.setCurrentCount(currentCount);
+        //封装总条数
+        int totalCount=0;
+
+        try {
+            totalCount=productDao.getCount(cid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        pageBean.setTotalCount(totalCount);
+        //封装总页数
+        int totalPage = (int) Math.ceil(1.0*totalCount/currentCount);
+        pageBean.setTotalPage(totalPage);
+        //封装当前页要显示的数据
+
+        //当前页与起始索引index的关系
+        int index=(currentPage-1)*currentCount;
+        List<Product> list=null;
+
+        try {
+            list=productDao.findProductByPage(cid,index,currentCount);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        pageBean.setList(list);
+
+        return pageBean;
+
+    }
 }
