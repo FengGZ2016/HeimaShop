@@ -3,6 +3,7 @@ package dao;
 import domain.Category;
 import domain.Product;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import utils.DataSourceUtils;
@@ -83,6 +84,20 @@ public class ProductDao {
     String sqlStr="select * from product where cid=? limit ?,?";
 
         List<Product> query = queryRunner.query(sqlStr, new BeanListHandler<Product>(Product.class), cid, index, currentCount);
+
+        return query;
+    }
+
+
+    /**
+     * 查询某个商品的信息
+     * @param pid
+     * @return
+     */
+    public Product findProductByPid(String pid) throws SQLException {
+        QueryRunner queryRunner=new QueryRunner(DataSourceUtils.getDataSource());
+        String sqlStr="select * from product where pid=?";
+        Product query = queryRunner.query(sqlStr, new BeanHandler<Product>(Product.class), pid);
 
         return query;
     }

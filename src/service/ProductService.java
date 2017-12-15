@@ -115,4 +115,23 @@ public class ProductService {
         return pageBean;
 
     }
+
+
+    /**
+     * 获取某个商品的信息
+     * @param pid
+     * @return
+     */
+    public Product findProductByPid(String pid) {
+        ProductDao productDao=new ProductDao();
+        Product product=null;
+
+        try {
+            product=productDao.findProductByPid(pid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return product;
+    }
 }
